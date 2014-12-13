@@ -1,0 +1,37 @@
+{
+  "name": "badeseenservice",
+  "version": "0.1.0",
+  "description": "Service module for badeseenapp",
+  "author": {
+    "name": "CodeForGiessen",
+    "email": ""
+  },
+  "repository": "CodeForGiessen/badeseenservice",
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "badeseenservice",
+    ""
+  ],
+  "dependencies": {
+    "express": "~4.10.6",
+    "q": "~1.1.2"
+  },
+  "devDependencies": {
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "load-grunt-tasks": "^1.0.0",
+    "time-grunt": "^1.0.0",
+    "grunt-mocha-cli": "^1.11.0",
+    "jshint-stylish": "^1.0.0",
+    "should": "~4.4.1",
+    "supertest": "~0.15.0"
+  },
+  "scripts": {
+    "test": "grunt"
+  }
+}
