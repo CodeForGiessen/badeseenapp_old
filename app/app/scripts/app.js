@@ -1,6 +1,11 @@
 'use strict';
 
-angular.module('Badeseenapp', ['ionic', 'config', 'Badeseenapp.controllers'])
+angular.module('Badeseenapp', [
+    'ionic',
+    'config',
+    'Badeseenapp.controllers',
+    'Badeseenapp.services',
+    'leaflet-directive'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -21,7 +26,6 @@ angular.module('Badeseenapp', ['ionic', 'config', 'Badeseenapp.controllers'])
         templateUrl: 'templates/menu.html',
         controller: 'AppCtrl'
     })
-
     .state('app.map', {
         url: '/map',
         views: {
@@ -30,7 +34,18 @@ angular.module('Badeseenapp', ['ionic', 'config', 'Badeseenapp.controllers'])
                 controller: 'MapCtrl'
             }
         }
-    });
+    })
+    .state('app.single', {
+        url: '/lake/:id',
+        views: {
+            'menuContent' :{
+                templateUrl: 'templates/lake.html',
+                controller: 'LakeCtrl'
+            }
+        }
+    })
+
+    ;
 
     $urlRouterProvider.otherwise('/app/map');
 });
