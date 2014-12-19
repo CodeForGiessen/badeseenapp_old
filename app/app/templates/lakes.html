@@ -1,0 +1,12 @@
+<ion-view title="Badeseen">
+    <ion-content class="has-header">
+        <ion-nav-buttons side="left">
+            <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+        </ion-nav-buttons>
+        <ion-list>
+            <ion-item class="item-icon-right" href="#/app/lake/{{lake.id}}" ng-repeat="lake in lakes | orderBy:orderby">
+                {{lake.name}} <span ng-show="lake.distanceToUser" class="badge badge-positive">{{lake.distanceToUser | distance}} entfernt</span>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

@@ -2,10 +2,12 @@
 
 angular.module('Badeseenapp', [
     'ionic',
-    'config',
+    'Badeseenapp.config',
     'Badeseenapp.controllers',
     'Badeseenapp.services',
-    'leaflet-directive'])
+    'Badeseenapp.filters',
+    'leaflet-directive',
+    'ngAnimate'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -32,6 +34,15 @@ angular.module('Badeseenapp', [
             'menuContent' :{
                 templateUrl: 'templates/map.html',
                 controller: 'MapCtrl'
+            }
+        }
+    })
+    .state('app.lakes', {
+        url: '/lakes',
+        views: {
+            'menuContent' :{
+                templateUrl: 'templates/lakes.html',
+                controller: 'LakesCtrl'
             }
         }
     })

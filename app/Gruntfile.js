@@ -33,15 +33,15 @@ module.exports = function (grunt) {
     ngconstant: {
       options: {
         space: '  ',
-        wrap: '"use strict";\n\n {%= __ngModule %}',
-        name: 'config',
+        wrap: '\'use strict\';\n/*THIS FILE IS GENERATED.\nEdit constants in ngconstant in Gruntfile.js.*/\n\n {%= __ngModule %}',
+        name: 'Badeseenapp.config',
         dest: '<%= yeoman.app %>/scripts/config.js'
       },
       development: {
         constants: {
           ENV: {
             name: 'development',
-            apiEndpoint: 'http://dev.yoursite.com:10000/'
+            apiEndpoint: 'http://localhost:8090/'
           }
         }
       },

@@ -1,5 +1,6 @@
 'use strict';
-angular.module('Badeseenapp.controllers', [])
+angular.module('Badeseenapp.controllers', [
+    'Badeseenapp.services'])
 
 /*jshint unused:false*/
 .controller('AppCtrl', [ function() {
@@ -45,13 +46,65 @@ angular.module('Badeseenapp.controllers', [])
     });
 
 }])
-.controller('LakeCtrl', ['$scope','$stateParams','lakes', function($scope,$stateParams,lakes) {
+.controller('LakesCtrl', ['$scope','lakes', '$ionicPopup', 'lakeutils', 'geolocation', function($scope,lakes,$ionicPopup,lakeutils,geolocation) {
+    $scope.lakes = [];
+    $scope.orderby = 'name';
+    $scope.location = undefined;
+
+    function useDistance(){
+        $scope.lakes = lakeutils.addDistanceToUserToLakes($scope.lakes,$scope.location);
+        $scope.orderby = 'distanceToUser';
+    }
+
+    lakes.getAllLakes().success(function(data){
+        var _lakes = [];
+        data.forEach(function(item, index) {
+            var lake = lakeutils.basicLake(item);
+            lake.idOpen = lakeutils.isLakeOpen(item);
+            _lakes.push(lake);           
+        });
+        $scope.lakes=_lakes;
+        if($scope.location){
+            useDistance();
+        }
+    })
+    .catch(function(error){
+        $ionicPopup.alert({
+            title: 'Netzwerkfehler',
+            template: 'Es können keine Badeseen angezeigt werden'
+        });
+    });
+
+    geolocation.getUserLocation()
+    .then(function(position){
+        $scope.location = position;
+        if($scope.lakes.length){
+            useDistance();
+        }
+    }).catch(function(error){
+        $ionicPopup.alert({
+            title: 'Geolocation nicht verfügbar',
+            template: 'Die Geolocation ist leider nicht verfügbar, bitte aktivieren Sie ihr GPS.'
+        });
+    });
+
+
+}])
+.controller('LakeCtrl', ['$scope','$stateParams','lakes','$ionicLoading', function($scope,$stateParams,lakes,$ionicLoading) {
     $scope.id = $stateParams.id;
-    $scope.name ='Badesee';
+    $scope.name ='';
+    $ionicLoading.show({
+        content: 'Laden',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0
+    });
 
     lakes.getLakeById($scope.id).success(function(data){
         $scope.name = data.name;
         $scope.description = data.introtext;
+        $ionicLoading.hide();
     });
 }])
 ;
